@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to Symfony!</title>
+
+<body>
+{{ knp_menu_render('main') }}
+{{ wo_render_breadcrumbs({separator: '>', listId: 'breadcrumbs'}) }}
+
+<h1>Все посты</h1>
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque doloribus dolorum, earum laudantium libero necessitatibus nemo nobis obcaecati provident quae quod reiciendis sunt voluptas. Asperiores aspernatur at distinctio inventore ipsa?
+    <div class="container">
+        {% for post in posts  %}
+            <li>{{ post.title }}</li>
+            <li>{{ post.content }}</li>
+            <li>{{ post.author }}</li>
+        {% endfor %}
+
+        <div class="count">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+    </div>
+</body>
+</html>

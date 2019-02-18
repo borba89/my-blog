@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to Symfony!</title>
+
+<body>
+{{ knp_menu_render('main') }}
+{{ wo_render_breadcrumbs({separator: '>', listId: 'breadcrumbs'}) }}
+
+<h1> Посты категории {{categoryName}}</h1>
+
+<div class="container">
+
+    <div class="count">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+
+    {% for po in pos  %}
+        <li>{{ po.title }}</li>
+        <li>{{ po.content }}</li>
+        <li>{{ po.author }}</li>
+    {% endfor %}
+</div>
+</body>
+</html>
