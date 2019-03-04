@@ -9,6 +9,7 @@ $client = new  \GuzzleHttp\Client([
     ]
 ]);
 
+
 $nickname = 'ObjectOrienter'.rand(0, 999);
 $data = array(
 'nickname' => $nickname,
