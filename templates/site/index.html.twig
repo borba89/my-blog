@@ -4,15 +4,34 @@
     <title>Welcome to Symfony!</title>
 
 <body>
+<h3>Menu Categories</h3>
 {{ knp_menu_render('main') }}
 {{ wo_render_breadcrumbs({separator: '>', listId: 'breadcrumbs'}) }}
+
+
+{{ form(form)}}
+
+<form class="form-inline my-2 my-lg-0" action="{{ path('app_site_index') }}" method="get">
+    <input class="form-control mr-sm-2" type="search" aria-label="Search" name="q">
+    <button class="btn btn-default my-2 my-sm-0" type="submit">Ищем</button>
+</form>
+
+{% if query != '' %}
+{% for searches in search %}
+
+            <a href="{{ path('app_site_post', {'title': searches.title}) }}"><li>{{ searches.title }}</li></a>
+            <li>{{ searches.content }}</li>
+            <li>{{ searches.author }}</li>
+
+{% endfor %}
+{% endif %}
 
 <h1>Все посты</h1>
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque doloribus dolorum, earum laudantium libero necessitatibus nemo nobis obcaecati provident quae quod reiciendis sunt voluptas. Asperiores aspernatur at distinctio inventore ipsa?
     <div class="container">
         {% for post in posts  %}
-            <li>{{ post.title }}</li>
+            <a href="{{ path('app_site_post', {'title': post.title}) }}"><li>{{ post.title }}</li></a>
             <li>{{ post.content }}</li>
             <li>{{ post.author }}</li>
         {% endfor %}

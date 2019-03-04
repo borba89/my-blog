@@ -31,16 +31,26 @@ class PostRepository extends ServiceEntityRepository
             ;
     }
 
-    public function findPostsOrderByCategory($category)
+    public function findPostsOrderByCategory($id)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.category = :category')
-            ->setParameter('category', $category)
+         return $this->createQueryBuilder('p')
+            ->andWhere('p.category = :id')
+            ->setParameter('id', $id)
             ->orderBy('p.id', 'ASC')
             ->getQuery()
             ->getResult()
-            ;
+                   ;
     }
+
+    public function findPostsByQuery($query)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.title LIKE :query')
+            ->setParameter('query', '%'. $query. '%')
+            ->getQuery()
+            ->getResult();
+    }
+
 
     // /**
     //  * @return Post[] Returns an array of Post objects

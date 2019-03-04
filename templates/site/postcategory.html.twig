@@ -4,6 +4,7 @@
     <title>Welcome to Symfony!</title>
 
 <body>
+<h3>Menu Categories</h3>
 {{ knp_menu_render('main') }}
 {{ wo_render_breadcrumbs({separator: '>', listId: 'breadcrumbs'}) }}
 
@@ -20,6 +21,7 @@
         <li>{{ po.content }}</li>
         <li>{{ po.author }}</li>
     {% endfor %}
+
 </div>
 </body>
 </html>

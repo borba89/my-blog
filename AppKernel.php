@@ -6,6 +6,7 @@ $bundles = [
 // ...
 
 new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+new EightPoints\Bundle\GuzzleBundle\EightPointsGuzzleBundle(),
 ];
 
 // ...

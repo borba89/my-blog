@@ -39,6 +39,12 @@ class Category
      */
     private $slug;
 
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="category",cascade={"persist", "remove"})
+     */
+    private $posts;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,6 +94,18 @@ class Category
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getPosts(): ?string
+    {
+        return $this->posts;
+    }
+
+    public function setPosts(string $posts): self
+    {
+        $this->posts = $posts;
 
         return $this;
     }

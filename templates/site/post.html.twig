@@ -1,0 +1,7 @@
+<h1>{{ postName }}</h1>
+{{ knp_menu_render('main') }}
+{{ wo_render_breadcrumbs({separator: '>', listId: 'breadcrumbs'}) }}
+
+    <li>{{ post.title }}</li>
+    <li>{{ post.content }}</li>
+    <li>{{ post.author }}</li>
