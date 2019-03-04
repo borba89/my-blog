@@ -17,7 +17,7 @@ class PostController extends AbstractController
 
     public function newAction(Request $request)
     {
-        $data = $request->getContent();
-        return new Response($data);
+         $data = $request->getContent();
+         return new Response($data);
     }
 }

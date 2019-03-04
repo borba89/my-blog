@@ -13,7 +13,7 @@ $nickname = 'ObjectOrienter'.rand(0, 999);
 $data = array(
 'nickname' => $nickname,
 'avatarNumber' => 5,
-'tagLine' => 'a test dev!'
+'tagLine' => 'a test dev!',
 );
 
 $response = $client->post('/api/post', [
