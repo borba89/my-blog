@@ -6,6 +6,17 @@
 <body>
 <h3>Menu Categories</h3>
 {{ knp_menu_render('main') }}
+<li class="nav-item">
+    <a class="nav-link" href="{{ path('app_login') }}">Login</a>
+</li>
+<ul class="navbar-nav ml-auto">
+    {% if is_granted('ROLE_USER') %}
+    {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_login') }}">Login</a>
+        </li>
+    {% endif %}
+</ul>
 {{ wo_render_breadcrumbs({separator: '>', listId: 'breadcrumbs'}) }}
 
 

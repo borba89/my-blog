@@ -62,24 +62,24 @@ class Category
         return $this;
     }
 
-    public function getParent(): ?string
+    public function getParent()
     {
         return $this->parent;
     }
 
-    public function setParent(string $parent): self
+    public function setParent($parent): self
     {
         $this->parent = $parent;
 
         return $this;
     }
 
-    public function getChildren(): ?string
+    public function getChildren()
     {
         return $this->children;
     }
 
-    public function setChildren(string $children): self
+    public function setChildren($children): self
     {
         $this->children = $children;
 
@@ -98,12 +98,12 @@ class Category
         return $this;
     }
 
-    public function getPosts(): ?string
+    public function getPosts()
     {
         return $this->posts;
     }
 
-    public function setPosts(string $posts): self
+    public function setPosts($posts): self
     {
         $this->posts = $posts;
 

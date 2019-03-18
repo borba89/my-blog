@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Swagger\Annotations as SWG;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
@@ -20,6 +21,7 @@ class Post
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      */
     private $title;
 
@@ -142,25 +144,13 @@ class Post
 
         return $this;
     }
-    /*
-    public function getCategoryId(): ?int
-    {
-        return $this->category_id;
-    }
 
-    public function setCategoryId(int $category_id): self
-    {
-        $this->category_id = $category_id;
-
-        return $this;
-    }*/
-
-    public function getComments(): ?string
+    public function getComments()
     {
         return $this->comments;
     }
 
-    public function setComments(string $comments): self
+    public function setComments($comments): self
     {
         $this->comments = $comments;
 
@@ -179,12 +169,12 @@ class Post
         return $this;
     }
 
-    public function getTags(): ?string
+    public function getTags()
     {
         return $this->tags;
     }
 
-    public function setTags(string $tags): self
+    public function setTags($tags): self
     {
         $this->tags = $tags;
 
