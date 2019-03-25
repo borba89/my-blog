@@ -3,8 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Comment;
 use App\Entity\Post;
+use App\Entity\User;
+use App\Form\CommentType;
 use App\Form\PostType;
+use App\Form\SearchType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\PostRepository;
 use App\Repository\CategoryRepository;
@@ -24,7 +28,7 @@ class SiteController extends AbstractController
     /**
      * @Route("/site/index")
      */
-    public function index( Request $request, PaginatorInterface $paginator, /*MarkdownHelper $markdownHelper,*/ PostRepository $repository, Breadcrumbs $breadcrumbs): Response
+    public function index( Request $request, PaginatorInterface $paginator,  PostRepository $repository, Breadcrumbs $breadcrumbs): Response
     {
         $post = new Post();
 
@@ -42,21 +46,22 @@ class SiteController extends AbstractController
             return $this->redirectToRoute('app_site_index');
         }
         $breadcrumbs->addRouteItem('Home', 'app_site_index');
-        $query = $request->query->get('q');
-        $search = $repository->findPostsByQuery($query);
+        //$query = $request->query->get('q');
+        //$search = $repository->findPostsByQuery($query);
         $posts = $repository->findAllPostQuery();
+
         $paginationPosts = $paginator->paginate(
             $posts,
             $request->query->getInt('page', 1),
-            10
+            2
         );
 
         return $this->render('site/index.html.twig', [
             'posts'=> $posts,
             'pagination'=> $paginationPosts,
             'form'=> $form->createView(),
-            'search' => $search,
-            'query' => $query,
+            //'search' => $search,
+            //'query' => $query,
         ]);
 
     }
@@ -94,6 +99,19 @@ class SiteController extends AbstractController
      */
     public function post(Post $post, Request $request, PostRepository $repository, Breadcrumbs $breadcrumbs)
     {
+        $comment = new Comment();
+        $post->addComment($comment);
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $comment->setCreateAt(date("Y-m-d\TH:i:sP"));
+            $comment->setModifiedAt(date("Y-m-d\TH:i:sP"));
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+        }
+
         $postName = $post->getTitle();
         $breadcrumbs->addItem('Home', '/site/index');
         $breadcrumbs->addItem($postName, 'app_site_post', ["%title%" => $postName]);
@@ -101,7 +119,21 @@ class SiteController extends AbstractController
             'breadcrumbs'=>$breadcrumbs,
             'postName'=> $postName,
             'post'=> $post,
+            'form'=> $form->createView(),
         ]);
     }
 
+    /**
+     * @Route("/site/search", name="app_site_search")
+     */
+    public function search(Request $request, Breadcrumbs $breadcrumbs)
+    {
+        $breadcrumbs->addItem('Home', '/site/index');
+        $breadcrumbs->addItem('Search', 'app_site_post', ["%title%" => 'Search']);
+        $searchForm = $this->createForm(SearchType::class);
+        $searchForm->handleRequest($request);
+        return $this->render('site/search.html.twig', [
+            'searchForm'=>$searchForm->createView(),
+        ]);
+    }
 }

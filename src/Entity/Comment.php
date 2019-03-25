@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -33,12 +34,14 @@ class Comment
     private $content;
 
     /**
+     * @var DateTime
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
     private $createAt;
 
     /**
+     * @var DateTime
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
      */
@@ -73,12 +76,12 @@ class Comment
         return $this;
     }
 
-    public function getPost(): ?string
+    public function getPost()
     {
         return $this->post;
     }
 
-    public function setPost(string $post): self
+    public function setPost($post): self
     {
         $this->post = $post;
 

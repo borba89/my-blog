@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Swagger\Annotations as SWG;
+use App\Entity\Comment;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
@@ -79,6 +81,12 @@ class Post
      * @ORM\Column(type="datetime")
      */
     private $modifiedAt;
+
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -203,5 +211,26 @@ class Post
         $this->modifiedAt = $modifiedAt;
 
         return $this;
+    }
+
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function getP(){
+        return true;
+    }
+
+
+    public function getQuery()
+    {
+        return true;
     }
 }

@@ -104,6 +104,9 @@
             "ref": "e5e657ce5a4ebc99f3c76916938aa0a5f8ef7736"
         }
     },
+    "elasticsearch/elasticsearch": {
+        "version": "v6.1.0"
+    },
     "exsyst/swagger": {
         "version": "v0.4.1"
     },
@@ -112,6 +115,15 @@
     },
     "fig/link-util": {
         "version": "1.0.0"
+    },
+    "friendsofsymfony/elastica-bundle": {
+        "version": "5.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "5.0",
+            "ref": "3f73f240ee0c3719e89f1c994ce66904e2ef84f6"
+        }
     },
     "friendsofsymfony/rest-bundle": {
         "version": "2.2",
@@ -133,6 +145,12 @@
     },
     "guzzlehttp/psr7": {
         "version": "1.5.2"
+    },
+    "guzzlehttp/ringphp": {
+        "version": "1.1.1"
+    },
+    "guzzlehttp/streams": {
+        "version": "3.0.0"
     },
     "hoa/compiler": {
         "version": "3.17.08.08"
@@ -239,6 +257,9 @@
     "ocramius/proxy-manager": {
         "version": "2.1.1"
     },
+    "pagerfanta/pagerfanta": {
+        "version": "v1.1.0"
+    },
     "phpdocumentor/reflection-common": {
         "version": "1.0.1"
     },
@@ -268,6 +289,12 @@
     },
     "ralouphie/getallheaders": {
         "version": "2.0.5"
+    },
+    "react/promise": {
+        "version": "v2.7.1"
+    },
+    "ruflin/elastica": {
+        "version": "6.1.1"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
