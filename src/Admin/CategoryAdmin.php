@@ -11,8 +11,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 class CategoryAdmin extends AbstractAdmin
 {
 
-
-
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper->add('nameCategory', TextType::class)
@@ -23,7 +21,7 @@ class CategoryAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
     $showMapper
-        ->tab('General') // the tab call is optional
+        ->tab('General')
         ->with('Content', [
             'class'       => 'col-md-8',
             'box_class'   => 'box box-solid box-danger',
@@ -34,7 +32,7 @@ class CategoryAdmin extends AbstractAdmin
     ->add('slug')
     //->add('posts')
     ->end()
-    ->end()
+
     ;
     }
 

@@ -2,7 +2,10 @@
  # path: /
   #controller: App\Controller\ArticleController::homepage
 
+#app_lucky_number:
+ # path: /lucky/number
+  #controller: App\Controller\LuckyController::number
 
-app_lucky_number:
-  path: /lucky/number
-  controller: App\Controller\LuckyController::number
+mgilet_notification:
+  resource: "@MgiletNotificationBundle/Controller/"
+  prefix: /notifications

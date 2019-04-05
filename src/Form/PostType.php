@@ -9,8 +9,16 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\Post;
 
+/**
+ * Class PostType
+ * @package App\Form
+ */
 class PostType extends AbstractType
 {
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         //parent::buildForm($builder, $options);
@@ -23,6 +31,9 @@ class PostType extends AbstractType
                 ->add('search', SubmitType::class);
     }
 
+    /**
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

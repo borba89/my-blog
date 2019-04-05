@@ -38,16 +38,26 @@ class User implements UserProviderInterface, UserInterface
      */
     private $firstName;
 
+    /**
+     * @return int
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
+    /**
+     * @param string $email
+     * @return User
+     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -91,6 +101,11 @@ class User implements UserProviderInterface, UserInterface
         $roles[] = 'ROLE_USER';
         return array_unique($roles);
     }
+
+    /**
+     * @param array $roles
+     * @return User
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -131,11 +146,19 @@ class User implements UserProviderInterface, UserInterface
         return $username;
     }
 
+    /**
+     * @param UserInterface $user
+     * @return UserInterface
+     */
     public function refreshUser(UserInterface $user)
     {
         return $user;
     }
 
+    /**
+     * @param string $class
+     * @return bool|string
+     */
     public function supportsClass($class)
     {
         return $class;

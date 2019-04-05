@@ -29,7 +29,16 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    mgilet.notification:
+        class: App\Service\SendNotification
+        lazy: true
+        arguments: ['@doctrine.orm.default_entity_manager', '@templating', '@router']
 
+
+    app.send_notification:
+        class: App\Service\SendNotification
+        lazy: true
+        arguments: ['@doctrine.orm.default_entity_manager', '@router']
 
     app.form.login:
         class: App\Security\LoginFormAuthenticator
@@ -63,4 +72,10 @@ services:
         arguments: [~, App\Entity\Post, ~]
         tags:
              - { name: sonata.admin, manager_type: orm, label: Post}
+
+    admin.user:
+        class: App\Admin\UserAdmin
+        arguments: [~, App\Entity\User, ~]
+        tags:
+        - { name: sonata.admin, manager_type: orm, label: User}
 

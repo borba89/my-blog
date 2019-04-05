@@ -39,16 +39,26 @@ class Tag
      */
     private $createAt;
 
+    /**
+     * @return int
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     * @return Tag
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -56,11 +66,18 @@ class Tag
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getSlug(): ?string
     {
         return $this->slug;
     }
 
+    /**
+     * @param string $slug
+     * @return Tag
+     */
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
@@ -68,11 +85,18 @@ class Tag
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getPosts(): ?string
     {
         return $this->posts;
     }
 
+    /**
+     * @param string $posts
+     * @return Tag
+     */
     public function setPosts(string $posts): self
     {
         $this->posts = $posts;
@@ -80,11 +104,18 @@ class Tag
         return $this;
     }
 
+    /**
+     * @return \DateTimeInterface
+     */
     public function getCreateAt(): ?\DateTimeInterface
     {
         return $this->createAt;
     }
 
+    /**
+     * @param \DateTimeInterface $createAt
+     * @return Tag
+     */
     public function setCreateAt(\DateTimeInterface $createAt): self
     {
         $this->createAt = $createAt;

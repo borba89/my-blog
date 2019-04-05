@@ -5,12 +5,15 @@ namespace App\Entity;
 use DateTime;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
  */
 class Comment
 {
+    use TimestampableEntity;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -35,28 +38,38 @@ class Comment
 
     /**
      * @var DateTime
-     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
     private $createAt;
 
     /**
      * @var DateTime
-     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="update")
      */
     private $modifiedAt;
 
+    /**
+     * @return int
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getAuthor(): ?string
     {
         return $this->author;
     }
 
+    /**
+     * @param string $author
+     * @return Comment
+     */
     public function setAuthor(string $author): self
     {
         $this->author = $author;
@@ -64,11 +77,18 @@ class Comment
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getContent(): ?string
     {
         return $this->content;
     }
 
+    /**
+     * @param string $content
+     * @return Comment
+     */
     public function setContent(string $content): self
     {
         $this->content = $content;
@@ -76,11 +96,18 @@ class Comment
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getPost()
     {
         return $this->post;
     }
 
+    /**
+     * @param $post
+     * @return Comment
+     */
     public function setPost($post): self
     {
         $this->post = $post;
@@ -88,11 +115,18 @@ class Comment
         return $this;
     }
 
+    /**
+     * @return \DateTimeInterface
+     */
     public function getCreateAt(): ?\DateTimeInterface
     {
         return $this->createAt;
     }
 
+    /**
+     * @param \DateTimeInterface $createAt
+     * @return Comment
+     */
     public function setCreateAt(\DateTimeInterface $createAt): self
     {
         $this->createAt = $createAt;
@@ -100,11 +134,18 @@ class Comment
         return $this;
     }
 
+    /**
+     * @return \DateTimeInterface
+     */
     public function getModifiedAt(): ?\DateTimeInterface
     {
         return $this->modifiedAt;
     }
 
+    /**
+     * @param \DateTimeInterface $modifiedAt
+     * @return Comment
+     */
     public function setModifiedAt(\DateTimeInterface $modifiedAt): self
     {
         $this->modifiedAt = $modifiedAt;

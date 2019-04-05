@@ -16,8 +16,8 @@ class SearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('query', SymfonySearchType::class, [
-                'label' => 'Search: '])
+            //->add('query', SymfonySearchType::class, [
+              //  'label' => 'Search: '])
             ->add('save', SubmitType::class, ['label' => 'Search', 'attr' => ['class'=>'btn btn-default pull-right']]);
 
     }

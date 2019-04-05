@@ -6,12 +6,21 @@
 <body>
 <h3>Menu Categories</h3>
 {{ knp_menu_render('main') }}
+{% if is_granted('ROLE_ADMIN') %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('sonata_admin_dashboard') }}">Admin</a>
+    </li>
+
+{% endif %}
+{% if is_granted('ROLE_USER') %}
+
+{% else %}
 <li class="nav-item">
+
     <a class="nav-link" href="{{ path('app_register') }}">Register</a>
 </li>
 <ul class="navbar-nav ml-auto">
-    {% if is_granted('ROLE_USER') %}
-    {% else %}
+
         <li class="nav-item">
             <a class="nav-link" href="{{ path('app_login') }}">Login</a>
         </li>
@@ -62,16 +71,15 @@
                 <th>{{ knp_pagination_sortable(pagination, 'Author', 'p.author') }}</th>
             </tr>
 
-            {# table body #}
             {% for post in pagination %}
                 <tr {% if loop.index is odd %}class="color"{% endif %}>
-                    <td>{{ post.title }}</td>
+                    <td><a href="{{ path('app_site_post', {'title': post.title}) }}">{{ post.title }}</a></td>
                     <td>{{ post.content }}</td>
                     <td>{{ post.author }}</td>
                 </tr>
             {% endfor %}
         </table>
-        {# display navigation #}
+
         <div class="navigation">
             {{ knp_pagination_render(pagination) }}
         </div>

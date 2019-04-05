@@ -13,8 +13,10 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use Swagger\Annotations as SWG;
 
-
-
+/**
+ * Class PostController
+ * @package App\Controller\Api
+ */
 class PostController extends AbstractController
 {
     /**
@@ -37,22 +39,24 @@ class PostController extends AbstractController
      *
      */
 
+    /**
+     * @param Post $post
+     *
+     *
+     * @return Response
+     */
     public function getPost(Post $post)
     {
-        /*$data = $request->getContent();
-        $post = new Post($data['nickname'], $data['avatarNumber']);
-        $post->setTags($data['tagline']);
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($post);
-        $em->flush();*/
 
-        ///$data = $post->getTitle();
-
-
-        return new Response($this->createApiResponse(['data' => json_encode($post)], 201));
-
+        return new Response($this->createApiResponse(['data' => serialize($post)], 201));
     }
 
+    /**
+     * @param $data
+     * @param int $statusCode
+     *
+     * @return Response
+     */
     protected function createApiResponse($data, $statusCode = 200)
     {
         $json = $this->serialize($data);
@@ -62,6 +66,12 @@ class PostController extends AbstractController
         ));
     }
 
+    /**
+     * @param $data
+     * @param string $format
+     *
+     * @return bool|float|int|string
+     */
     protected  function  serialize($data, $format = 'json')
     {
         return $this->container->get('serializer')

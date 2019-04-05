@@ -1,0 +1,1 @@
+a:7:{s:15:"admin.post.list";s:19:"admin_app_post_list";s:17:"admin.post.create";s:21:"admin_app_post_create";s:16:"admin.post.batch";s:20:"admin_app_post_batch";s:15:"admin.post.edit";s:19:"admin_app_post_edit";s:17:"admin.post.delete";s:21:"admin_app_post_delete";s:15:"admin.post.show";s:19:"admin_app_post_show";s:17:"admin.post.export";s:21:"admin_app_post_export";}

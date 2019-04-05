@@ -5,8 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
-use Swagger\Annotations as SWG;
-use App\Entity\Comment;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
@@ -46,11 +45,6 @@ class Post
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="posts")
      */
     private $category;
-     /*
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Category", inversedBy="id")
-     */
-    //private $category_id;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="post", orphanRemoval=true)
@@ -83,21 +77,34 @@ class Post
     private $modifiedAt;
 
 
+    /**
+     * Post constructor.
+     */
     public function __construct()
     {
         $this->comments = new ArrayCollection();
     }
 
+    /**
+     * @return int
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
+    /**
+     * @param string $title
+     * @return Post
+     */
     public function setTitle(string $title): self
     {
         $this->title = $title;
@@ -105,11 +112,18 @@ class Post
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getContent(): ?string
     {
         return $this->content;
     }
 
+    /**
+     * @param string $content
+     * @return Post
+     */
     public function setContent(string $content): self
     {
         $this->content = $content;
@@ -117,11 +131,18 @@ class Post
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getAuthor(): ?string
     {
         return $this->author;
     }
 
+    /**
+     * @param string $author
+     * @return Post
+     */
     public function setAuthor(string $author): self
     {
         $this->author = $author;
@@ -129,11 +150,18 @@ class Post
         return $this;
     }
 
+    /**
+     * @return int
+     */
     public function getStatus(): ?int
     {
         return $this->status;
     }
 
+    /**
+     * @param int $status
+     * @return Post
+     */
     public function setStatus(int $status): self
     {
         $this->status = $status;
@@ -141,11 +169,18 @@ class Post
         return $this;
     }
 
+    /**
+     * @return Category
+     */
     public function getCategory(): ?Category
     {
         return $this->category;
     }
 
+    /**
+     * @param Category $category
+     * @return Post
+     */
     public function setCategory(Category $category): self
     {
         $this->category = $category;
@@ -153,11 +188,18 @@ class Post
         return $this;
     }
 
+    /**
+     * @return ArrayCollection
+     */
     public function getComments()
     {
         return $this->comments;
     }
 
+    /**
+     * @param $comments
+     * @return Post
+     */
     public function setComments($comments): self
     {
         $this->comments = $comments;
@@ -165,11 +207,18 @@ class Post
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getSlug(): ?string
     {
         return $this->slug;
     }
 
+    /**
+     * @param string $slug
+     * @return Post
+     */
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
@@ -177,11 +226,18 @@ class Post
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getTags()
     {
         return $this->tags;
     }
 
+    /**
+     * @param $tags
+     * @return Post
+     */
     public function setTags($tags): self
     {
         $this->tags = $tags;
@@ -189,11 +245,18 @@ class Post
         return $this;
     }
 
+    /**
+     * @return \DateTimeInterface
+     */
     public function getCreateAt(): ?\DateTimeInterface
     {
         return $this->createAt;
     }
 
+    /**
+     * @param \DateTimeInterface $createAt
+     * @return Post
+     */
     public function setCreateAt(\DateTimeInterface $createAt): self
     {
         $this->createAt = $createAt;
@@ -201,11 +264,18 @@ class Post
         return $this;
     }
 
+    /**
+     * @return \DateTimeInterface
+     */
     public function getModifiedAt(): ?\DateTimeInterface
     {
         return $this->modifiedAt;
     }
 
+    /**
+     * @param \DateTimeInterface $modifiedAt
+     * @return Post
+     */
     public function setModifiedAt(\DateTimeInterface $modifiedAt): self
     {
         $this->modifiedAt = $modifiedAt;
@@ -213,7 +283,10 @@ class Post
         return $this;
     }
 
-
+    /**
+     * @param Comment $comment
+     * @return Post
+     */
     public function addComment(Comment $comment): self
     {
         if (!$this->comments->contains($comment)) {
@@ -224,11 +297,16 @@ class Post
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function getP(){
         return true;
     }
 
-
+    /**
+     * @return bool
+     */
     public function getQuery()
     {
         return true;

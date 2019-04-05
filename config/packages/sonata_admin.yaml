@@ -16,7 +16,8 @@ sonata_admin:
         edit:              '@SonataAdmin/CRUD/edit.html.twig'
         tab_menu_template: '@SonataAdmin/Core/tab_menu_template.html.twig'
         search_result_block: '@SonataAdmin/Block/block_search_result.html.twig'
-        show:   '@App/Admin/display_client.html.twig'
+        #show:'@App/Admin/display_client.html.twig'
+        show: '@SonataAdmin/CRUD/show.html.twig'
     title: 'Sonata Admin'
     dashboard:
         blocks:

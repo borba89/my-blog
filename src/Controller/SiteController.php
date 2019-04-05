@@ -5,16 +5,10 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Entity\Comment;
 use App\Entity\Post;
-use App\Entity\User;
 use App\Form\CommentType;
 use App\Form\PostType;
 use App\Form\SearchType;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\PostRepository;
-use App\Repository\CategoryRepository;
-//use App\Service\MarkdownHelper;
-use Knp\Component\Pager\Pagination\PaginationInterface;
-use Psr\Container\ContainerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,11 +16,23 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 use Knp\Component\Pager\PaginatorInterface;
+use App\Service\SendNotification;
+use Mgilet\NotificationBundle\Twig\NotificationExtension;
 
+/**
+ * Class SiteController
+ * @package App\Controller
+ */
 class SiteController extends AbstractController
 {
     /**
-     * @Route("/site/index")
+     * @Route("site/index", name="app_site_index")
+     * @param Request $request
+     * @param PaginatorInterface $paginator
+     * @param PostRepository $repository
+     * @param Breadcrumbs $breadcrumbs
+     *
+     * @return Response
      */
     public function index( Request $request, PaginatorInterface $paginator,  PostRepository $repository, Breadcrumbs $breadcrumbs): Response
     {
@@ -53,7 +59,7 @@ class SiteController extends AbstractController
         $paginationPosts = $paginator->paginate(
             $posts,
             $request->query->getInt('page', 1),
-            2
+            10
         );
 
         return $this->render('site/index.html.twig', [
@@ -69,7 +75,14 @@ class SiteController extends AbstractController
     /**
      * @Route("/site/postcategory/{slug}", name="app_site_postcategory")
      * @ParamConverter("slug", options={"mapping" : {"slug" : "slug"}})
+     * @param Post $post
+     * @param Category $category
+     * @param Request $request
+     * @param PaginatorInterface $paginator
+     * @param PostRepository $repository
+     * @param Breadcrumbs $breadcrumbs
      *
+     * @return Response
      */
     public function postcategory(Post $post, Category $category, Request $request, PaginatorInterface $paginator, PostRepository $repository, Breadcrumbs $breadcrumbs)
     {
@@ -96,6 +109,12 @@ class SiteController extends AbstractController
     /**
      * @Route("/site/post/{title}", name="app_site_post")
      * @ParamConverter("title", options={"mapping" : {"title" : "title"}})
+     * @param Post $post
+     * @param Request $request
+     * @param PostRepository $repository
+     * @param Breadcrumbs $breadcrumbs
+     *
+     * @return Response
      */
     public function post(Post $post, Request $request, PostRepository $repository, Breadcrumbs $breadcrumbs)
     {
@@ -105,12 +124,14 @@ class SiteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
-            $comment->setCreateAt(date("Y-m-d\TH:i:sP"));
-            $comment->setModifiedAt(date("Y-m-d\TH:i:sP"));
+            $comment->setCreateAt(\DateTime::createFromFormat('Y-m-d H:i:s', date('Y-m-d H:i:s')) );
+            $comment->setModifiedAt(\DateTime::createFromFormat('Y-m-d H:i:s', date('Y-m-d H:i:s')));
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush();
         }
+
+        $comments = $post->getComments();
 
         $postName = $post->getTitle();
         $breadcrumbs->addItem('Home', '/site/index');
@@ -120,6 +141,7 @@ class SiteController extends AbstractController
             'postName'=> $postName,
             'post'=> $post,
             'form'=> $form->createView(),
+            'comments'=>$comments,
         ]);
     }
 
@@ -135,5 +157,24 @@ class SiteController extends AbstractController
         return $this->render('site/search.html.twig', [
             'searchForm'=>$searchForm->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/send-notification", name="send_notification")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function sendNotification(Request $request)
+    {
+        $manager = $this->get('mgilet.notification');
+        $notif = $manager->createNotification('Hello world !');
+        $notif->setMessage('This a notification.');
+        $notif->setLink('http://symfony.com/');
+
+        // $manager->createNotification('Notification subject','Some random text','http://google.fr');
+
+        $manager->addNotification(array($this->getUser()), $notif, true);
+
+        return $this->redirectToRoute('/site/index');
     }
 }
