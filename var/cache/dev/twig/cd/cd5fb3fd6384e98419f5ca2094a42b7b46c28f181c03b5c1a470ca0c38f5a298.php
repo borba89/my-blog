@@ -85,15 +85,44 @@ class __TwigTemplate_0874869773029841ba8575d63ce67fcc3d6a6e8071e27c667ecec6b90b5
 ";
         // line 33
         echo "
-<!--<form class=\"form-inline my-2 my-lg-0\" action=\"";
+<form class=\"form-inline my-2 my-lg-0\" action=\"";
         // line 34
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_site_index");
-        echo "\" method=\"get\">-->
+        echo "\" method=\"get\">
     <input class=\"form-control mr-sm-2\" type=\"search\" aria-label=\"Search\" name=\"q\">
-    <a href=\"/site/search\"><button class=\"btn btn-default my-2 my-sm-0\" type=\"submit\">Ищем</button></a>
-<!--</form>-->
+    <button class=\"btn btn-default my-2 my-sm-0\" type=\"submit\">Ищем</button>
+</form>
 
 ";
+        // line 39
+        if (((isset($context["query"]) || array_key_exists("query", $context) ? $context["query"] : (function () { throw new Twig_Error_Runtime('Variable "query" does not exist.', 39, $this->source); })()) != "")) {
+            // line 40
+            $context['_parent'] = $context;
+            $context['_seq'] = twig_ensure_traversable((isset($context["search"]) || array_key_exists("search", $context) ? $context["search"] : (function () { throw new Twig_Error_Runtime('Variable "search" does not exist.', 40, $this->source); })()));
+            foreach ($context['_seq'] as $context["_key"] => $context["searches"]) {
+                // line 41
+                echo "
+            <a href=\"";
+                // line 42
+                echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_site_post", array("title" => twig_get_attribute($this->env, $this->source, $context["searches"], "title", array()))), "html", null, true);
+                echo "\"><li>";
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["searches"], "title", array()), "html", null, true);
+                echo "</li></a>
+            <li>";
+                // line 43
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["searches"], "content", array()), "html", null, true);
+                echo "</li>
+            <li>";
+                // line 44
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["searches"], "author", array()), "html", null, true);
+                echo "</li>
+
+";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['searches'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+        }
         // line 48
         echo "
 <h1>Все посты</h1>
@@ -241,7 +270,7 @@ class __TwigTemplate_0874869773029841ba8575d63ce67fcc3d6a6e8071e27c667ecec6b90b5
 
     public function getDebugInfo()
     {
-        return array (  217 => 84,  212 => 81,  195 => 78,  191 => 77,  185 => 76,  178 => 75,  161 => 74,  155 => 71,  151 => 70,  146 => 69,  139 => 64,  133 => 61,  129 => 59,  121 => 57,  117 => 56,  110 => 55,  106 => 54,  98 => 48,  90 => 34,  87 => 33,  81 => 29,  78 => 28,  72 => 25,  64 => 20,  60 => 18,  56 => 16,  54 => 15,  47 => 11,  44 => 10,  42 => 9,  38 => 8,  29 => 1,);
+        return array (  246 => 84,  241 => 81,  224 => 78,  220 => 77,  214 => 76,  207 => 75,  190 => 74,  184 => 71,  180 => 70,  175 => 69,  168 => 64,  162 => 61,  158 => 59,  150 => 57,  146 => 56,  139 => 55,  135 => 54,  127 => 48,  117 => 44,  113 => 43,  107 => 42,  104 => 41,  100 => 40,  98 => 39,  90 => 34,  87 => 33,  81 => 29,  78 => 28,  72 => 25,  64 => 20,  60 => 18,  56 => 16,  54 => 15,  47 => 11,  44 => 10,  42 => 9,  38 => 8,  29 => 1,);
     }
 
     public function getSourceContext()
@@ -279,12 +308,12 @@ class __TwigTemplate_0874869773029841ba8575d63ce67fcc3d6a6e8071e27c667ecec6b90b5
 
 {# form(form)#}
 
-<!--<form class=\"form-inline my-2 my-lg-0\" action=\"{{ path('app_site_index') }}\" method=\"get\">-->
+<form class=\"form-inline my-2 my-lg-0\" action=\"{{ path('app_site_index') }}\" method=\"get\">
     <input class=\"form-control mr-sm-2\" type=\"search\" aria-label=\"Search\" name=\"q\">
-    <a href=\"/site/search\"><button class=\"btn btn-default my-2 my-sm-0\" type=\"submit\">Ищем</button></a>
-<!--</form>-->
+    <button class=\"btn btn-default my-2 my-sm-0\" type=\"submit\">Ищем</button>
+</form>
 
-{#  if query != '' %}
+{%  if query != '' %}
 {% for searches in search %}
 
             <a href=\"{{ path('app_site_post', {'title': searches.title}) }}\"><li>{{ searches.title }}</li></a>
@@ -292,7 +321,7 @@ class __TwigTemplate_0874869773029841ba8575d63ce67fcc3d6a6e8071e27c667ecec6b90b5
             <li>{{ searches.author }}</li>
 
 {% endfor %}
-{% endif #}
+{% endif %}
 
 <h1>Все посты</h1>
 

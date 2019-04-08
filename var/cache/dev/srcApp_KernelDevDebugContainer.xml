@@ -969,15 +969,6 @@
     <service id="App\Twig\AppRuntime" class="App\Twig\AppRuntime" autowire="true" autoconfigure="true">
       <tag name="twig.runtime"/>
     </service>
-    <service id="mgilet.notification" class="App\Service\SendNotification" lazy="true" autowire="true" autoconfigure="true">
-      <argument type="service" id="doctrine.orm.default_entity_manager"/>
-      <argument type="service" id="templating.engine.twig"/>
-      <argument type="service" id="router.default"/>
-    </service>
-    <service id="app.send_notification" class="App\Service\SendNotification" lazy="true" autowire="true" autoconfigure="true">
-      <argument type="service" id="doctrine.orm.default_entity_manager"/>
-      <argument type="service" id="router.default"/>
-    </service>
     <service id="app.form.login" class="App\Security\LoginFormAuthenticator" autowire="true" autoconfigure="true">
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
       <argument type="service" id="App\Repository\UserRepository"/>
@@ -8612,6 +8603,10 @@
       <tag name="app"/>
       <argument>app</argument>
       <factory service="fos_elastica.client.default" method="getIndex"/>
+    </service>
+    <service id="mgilet.notification" class="Mgilet\NotificationBundle\Manager\NotificationManager" public="true">
+      <argument type="service" id="service_container"/>
+      <argument type="service" id="mgilet.notifiable_discovery"/>
     </service>
     <service id="mgilet.notifiable_discovery" class="Mgilet\NotificationBundle\NotifiableDiscovery" public="false">
       <argument type="service" id="doctrine.orm.default_entity_manager"/>

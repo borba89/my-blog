@@ -52,8 +52,8 @@ class SiteController extends AbstractController
             return $this->redirectToRoute('app_site_index');
         }
         $breadcrumbs->addRouteItem('Home', 'app_site_index');
-        //$query = $request->query->get('q');
-        //$search = $repository->findPostsByQuery($query);
+        $query = $request->query->get('q');
+        $search = $repository->findPostsByQuery($query);
         $posts = $repository->findAllPostQuery();
 
         $paginationPosts = $paginator->paginate(
@@ -66,8 +66,8 @@ class SiteController extends AbstractController
             'posts'=> $posts,
             'pagination'=> $paginationPosts,
             'form'=> $form->createView(),
-            //'search' => $search,
-            //'query' => $query,
+            'search' => $search,
+            'query' => $query,
         ]);
 
     }
